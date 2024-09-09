@@ -28,7 +28,7 @@ class Tarefa(models.Model):
     data_criacao = models.DateTimeField(default=timezone.now, verbose_name="Data de Criação")
     data_vencimento = models.DateTimeField(verbose_name="Data de Vencimento", null=True, blank=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pendente', verbose_name="Status")
-    usuarios = models.ManyToManyField(Usuario, related_name='tarefas', verbose_name="Usuários")
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='tarefas', verbose_name="Usuário")
 
     def __str__(self):
         return self.titulo
