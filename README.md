@@ -2,10 +2,10 @@
 
 
 Rodar projeto
- `python  [manage.py](http://manage.py/) runserver`
+ ` python  manage.py runserver`
 
 Criar arquivo de migrations
-`python [manage.py](http://manage.py/) makemigrations` 
+`python manage.py makemigrations` 
 
 Executar migração
-`python [manage.py](http://manage.py/) migrate`
+`python manage.py migrate`
