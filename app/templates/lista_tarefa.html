@@ -1,0 +1,12 @@
+<!-- tasks/templates/tasks/task_list.html -->
+<h1>Lista de tarefas</h1>
+<a href="{% url 'criar_tarefa' %}">Crie uma nova tarefa</a>
+<ul>
+    {% for task in tasks %}
+        <li>
+            {{ task.title }} - {{ task.description }} - {{ task.completed }}
+            <!-- <a href="{% url 'task_update' task.id %}">Edit</a>
+            <a href="{% url 'task_delete' task.id %}">Delete</a> -->
+        </li>
+    {% endfor %}
+</ul>

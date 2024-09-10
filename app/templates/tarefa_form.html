@@ -1,0 +1,7 @@
+<h1>{{ form.instance.pk|default:"Create" }} Tarefa</h1>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Salvar</button>
+</form>
+<a href="{% url 'lista_tarefa' %}">Voltar a lista de tarefas</a>
