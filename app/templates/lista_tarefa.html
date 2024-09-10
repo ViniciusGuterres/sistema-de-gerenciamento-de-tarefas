@@ -1,12 +1,48 @@
-<!-- tasks/templates/tasks/task_list.html -->
-<h1>Lista de tarefas</h1>
-<a href="{% url 'criar_tarefa' %}">Crie uma nova tarefa</a>
-<ul>
-    {% for task in tasks %}
-        <li>
-            {{ task.title }} - {{ task.description }} - {{ task.completed }}
-            <!-- <a href="{% url 'task_update' task.id %}">Edit</a>
-            <a href="{% url 'task_delete' task.id %}">Delete</a> -->
-        </li>
-    {% endfor %}
-</ul>
+
+{% extends 'base.html' %}
+
+{% block content %}   
+    <div class="container mx-auto p-6">
+        <h1 class="text-3xl font-bold mb-6">Tarefas</h1>
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Título</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Descrição</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Data
+                            de Criação</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Data
+                            de Vencimento</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Status</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    {% for tarefa in tarefas %}
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ tarefa.titulo }}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{
+                            tarefa.descricao|default:"Nenhuma descrição" }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ tarefa.data_criacao }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{
+                            tarefa.data_vencimento|default:"Não definido" }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            {% if tarefa.status == 'pendente' %}
+                            <span class="bg-yellow-100 text-yellow-800 py-1 px-3 rounded-full text-xs">Pendente</span>
+                            {% elif tarefa.status == 'em_progresso' %}
+                            <span class="bg-blue-100 text-blue-800 py-1 px-3 rounded-full text-xs">Em Progresso</span>
+                            {% elif tarefa.status == 'concluida' %}
+                            <span class="bg-green-100 text-green-800 py-1 px-3 rounded-full text-xs">Concluída</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
