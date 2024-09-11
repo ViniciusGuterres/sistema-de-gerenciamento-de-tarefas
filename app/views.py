@@ -3,6 +3,7 @@ from .models import Tarefa
 from .forms import TarefaForm
 from django.contrib.auth import authenticate, login as auth_login
 from .forms import UsuarioCadastroForm, CustomLoginForm
+from django.contrib.auth import logout as auth_logout
 
 def cadastro(request):
     if request.method == 'POST':
@@ -31,6 +32,10 @@ def login(request):
         form = CustomLoginForm()
 
     return render(request, 'login.html', {'form': form})
+
+def logout(request):
+    auth_logout(request)
+    return redirect('login')
 
 def lista_tarefa(request):
     Tarefas = Tarefa.objects.all()
