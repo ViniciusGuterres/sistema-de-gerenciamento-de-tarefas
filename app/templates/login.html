@@ -39,8 +39,11 @@
                     {% endif %}
                 </div>
                 <button type="submit" class="w-full py-2 px-4 bg-gray-600 text-white font-semibold rounded-lg shadow-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">Login</button>
-                <button type="submit" class="w-full my-3 py-2 px-4 bg-gray-600 text-white font-semibold rounded-lg shadow-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50"><a href="{% url 'cadastro' %}">Fazer Cadastro</a></button>
             </form>
+            
+            <a class="w-full block" href="{% url 'cadastro' %}">
+                <button class="w-full my-3 py-2 px-4 bg-gray-600 text-white font-semibold rounded-lg shadow-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">Fazer Cadastro</button>
+            </a>
         </div>
     </main>
 </body>
