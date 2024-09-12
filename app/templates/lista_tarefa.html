@@ -7,67 +7,39 @@
         <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
                 <tr>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Título</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Descrição</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Data
-                        de Criação</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Data
-                        de Vencimento</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Status</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Usuario</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Título</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Descrição</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Data de Criação</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Data de Vencimento</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Usuário</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ações</th>
                 </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
                 {% for tarefa in Tarefas %}
                 <tr>
-                    <form method="POST" >
-                        {% csrf_token %}
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ tarefa.titulo }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ tarefa.descricao|default:"Nenhuma descrição" }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ tarefa.data_criacao|date:"d/m/Y H:i" }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ tarefa.data_vencimento|date:"d/m/Y H:i" }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                           
-                            <select name="status" class="border-gray-300 rounded-md shadow-sm">
-                                <option value="pendente" {% if tarefa.status == 'pendente' %}selected{% endif %}>Pendente</option>
-                                <option value="em_progresso" {% if tarefa.status == 'em_progresso' %}selected{% endif %}>Em Progresso</option>
-                                <option value="concluida" {% if tarefa.status == 'concluida' %}selected{% endif %}>Concluída</option>
-                            </select>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                         
-                            <select name="usuario" class="border-gray-300 rounded-md shadow-sm">
-                                {% for usuario in Usuarios %}
-                                <option value="{{ usuario.id }}" {% if tarefa.usuario.id == usuario.id %}selected{% endif %}>
-                                    {{ usuario.name }}
-                                </option>
-                                {% endfor %}
-                            </select>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                         
-                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded">
-                                Salvar
-                            </button>
-                        </td>
-                    </form>
-                
-                    
-                    <form method="POST"  onsubmit="return confirm('Tem certeza que deseja deletar esta tarefa?');">
-                        {% csrf_token %}
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-red-500">                      
-                            <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded">
-                                Deletar
-                            </button>
-                        </td>
-                    </form>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ tarefa.titulo }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ tarefa.descricao|default:"Nenhuma descrição" }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ tarefa.data_criacao|date:"d/m/Y H:i" }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ tarefa.data_vencimento|date:"d/m/Y H:i" }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ tarefa.status }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ tarefa.usuario.name }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <div class="flex space-x-4">
+                            <!-- Edit Button -->
+                            <a href="{% url 'atualizar_tarefa' tarefa.id %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                Editar
+                            </a>
+
+                            <!-- Delete Button -->
+                            <a href="{% url 'deletar_tarefa' tarefa.id %}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                                Excluir
+                            </a>
+                        </div>
+                    </td>
                 </tr>
                 {% endfor %}
-                            
             </tbody>
         </table>
     </div>

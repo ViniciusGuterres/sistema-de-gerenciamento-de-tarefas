@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Tarefa, Usuario
 from .forms import TarefaForm
 from django.contrib.auth import authenticate, login as auth_login
@@ -58,21 +58,24 @@ def criar_tarefa(request):
 
     return render(request, 'tarefa_form.html', {'form': form})
 
+def atualizar_tarefa(request, tarefa_id):
+    tarefa = get_object_or_404(Tarefa, id=tarefa_id)
 
-# def Tarefa_update(request, Tarefa_id):
-#     Tarefa = get_object_or_404(Tarefa, id=Tarefa_id)
-#     if request.method == 'POST':
-#         form = TarefaForm(request.POST, instance=Tarefa)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('lista_tarefa')
-#     else:
-#         form = TarefaForm(instance=Tarefa)
-#     return render(request, 'Tarefas/Tarefa_form.html', {'form': form})
+    if request.method == 'POST':
+        form = TarefaForm(request.POST, instance=tarefa)
+        if form.is_valid():
+            form.save()
+            return redirect('lista_tarefa') 
+    else:
+        form = TarefaForm(instance=tarefa)
 
-# def Tarefa_delete(request, Tarefa_id):
-#     Tarefa = get_object_or_404(Tarefa, id=Tarefa_id)
-#     if request.method == 'POST':
-#         Tarefa.delete()
-#         return redirect('lista_tarefa')
-#     return render(request, 'Tarefas/Tarefa_confirm_delete.html', {'Tarefa': Tarefa})
+    return render(request, 'atualizar_tarefa.html', {'form': form, 'tarefa': tarefa})
+
+def deletar_tarefa(request, tarefa_id):
+    tarefa = get_object_or_404(Tarefa, id=tarefa_id)
+
+    if request.method == 'POST':
+        tarefa.delete()
+        return redirect('lista_tarefa')
+
+    return render(request, 'deletar_tarefa.html', {'tarefa': tarefa})
