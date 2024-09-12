@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Tarefa
+from .models import Tarefa, Usuario
 from .forms import TarefaForm
 from django.contrib.auth import authenticate, login as auth_login
 from .forms import UsuarioCadastroForm, CustomLoginForm
@@ -41,7 +41,8 @@ def logout(request):
 @login_required
 def lista_tarefa(request):
     Tarefas = Tarefa.objects.all()
-    return render(request, 'lista_tarefa.html', {'Tarefas': Tarefas})
+    Usuarios = Usuario.objects.all()
+    return render(request, 'lista_tarefa.html', {'Tarefas': Tarefas, 'Usuarios': Usuarios})
 
 @login_required
 def criar_tarefa(request):
