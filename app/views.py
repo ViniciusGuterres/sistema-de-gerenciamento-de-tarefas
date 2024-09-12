@@ -45,10 +45,13 @@ def criar_tarefa(request):
     if request.method == 'POST':
         form = TarefaForm(request.POST)
         if form.is_valid():
-            form.save()
+            tarefa = form.save(commit=False) 
+            tarefa.usuario = request.user  
+            tarefa.save() 
             return redirect('lista_tarefa')
     else:
         form = TarefaForm()
+
     return render(request, 'tarefa_form.html', {'form': form})
 
 
