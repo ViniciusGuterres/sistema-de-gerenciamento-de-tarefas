@@ -1,15 +1,15 @@
 # sistema-de-gerenciamento-de-tarefas
 
-Rodar commando
+1°) Rodar commando
 `pip install django-widget-tweaks`
 
-Criar arquivo de migrations
+2°) Criar arquivo de migrations
 `python manage.py makemigrations` 
 
-Executar migração
+3°) Executar migração
 `python manage.py migrate`
 
-Rodar projeto
+4°) Rodar projeto
  ` python  manage.py runserver`
 
 
