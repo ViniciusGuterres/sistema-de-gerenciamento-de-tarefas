@@ -24,7 +24,7 @@ class UsuarioCadastroForm(forms.ModelForm):
 
     class Meta:
         model = Usuario
-        fields = ['email', 'name']  # Verifique se 'name' está correto
+        fields = ['email', 'name']
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-input mt-1 block w-full'}),
             'email': forms.EmailInput(attrs={'class': 'form-input mt-1 block w-full'}),
@@ -46,7 +46,7 @@ class UsuarioCadastroForm(forms.ModelForm):
 
 
 class CustomLoginForm(forms.Form):
-    email = forms.CharField()  # Altere 'username' para 'email'
+    email = forms.CharField()  
     password = forms.CharField(widget=forms.PasswordInput)
 
     def __init__(self, *args, **kwargs):
@@ -55,13 +55,13 @@ class CustomLoginForm(forms.Form):
 
     def clean(self):
         cleaned_data = super().clean()
-        email = cleaned_data.get('email')  # Altere 'username' para 'email'
+        email = cleaned_data.get('email') 
         password = cleaned_data.get('password')
-        print(email)  # Verifique se o 'email' está correto
+        print(email)
         print(password)
 
         if email and password:
-            self.user = authenticate(self.request, username=email, password=password)  # Use 'username=email'
+            self.user = authenticate(self.request, username=email, password=password) 
             if self.user is None:
                 raise forms.ValidationError("Nome de usuário ou senha inválidos")
         return cleaned_data
