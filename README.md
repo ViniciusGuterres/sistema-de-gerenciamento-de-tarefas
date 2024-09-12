@@ -1,5 +1,7 @@
 # sistema-de-gerenciamento-de-tarefas
 
+Rodar commando
+`pip install django-widget-tweaks`
 
 Rodar projeto
  ` python  manage.py runserver`
